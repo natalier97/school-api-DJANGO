@@ -3,7 +3,6 @@ import re
 
 
 
-
 def validate_combination_format(locker_combination):
 # validate_combination_format: Only accepts string in the following format "12-12-12" (Ensures there are numbers only)
     regex =  r"^[-0-9]+$"
