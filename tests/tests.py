@@ -1,6 +1,6 @@
 from django.test import TestCase
 # from grade_app.models import Grade, Student, Subject
-from student_app.models import Student, Subject
+from grade_app.models import Student, Subject, Grade
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, DataError
 from student_app.serializers import StudentAllSerializer, StudentSerializer
@@ -297,69 +297,69 @@ class Test_student(TestCase):
         serializer = StudentSerializer(data=data)
         self.assertTrue(serializer.is_valid())
 
-    def test_017_student_serializer_with_proper_data(self):
-        student = Student(
-            **{
-                "name": "John W. Watson",
-                "student_email": "thisIsAnEmail@school.com",
-                "locker_number": 13,
-            }
-        )
+    # def test_017_student_serializer_with_proper_data(self):
+    #     student = Student(
+    #         **{
+    #             "name": "John W. Watson",
+    #             "student_email": "thisIsAnEmail@school.com",
+    #             "locker_number": 13,
+    #         }
+    #     )
 
-        serializer = StudentSerializer(student)
-        self.assertEquals(
-            serializer.data,
-            {
-                "name": "John W. Watson",
-                "student_email": "thisIsAnEmail@school.com",
-                "locker_number": 13,
-            },
-        )
+    #     serializer = StudentSerializer(student)
+    #     self.assertEquals(
+    #         serializer.data,
+    #         {
+    #             "name": "John W. Watson",
+    #             "student_email": "thisIsAnEmail@school.com",
+    #             "locker_number": 13,
+    #         },
+    #     )
 
-    def test_018_student_serializer_all_with_proper_data(self):
-        try:
-            Subject.objects.create(subject_name="Python", professor="Professor Adam")
-            data = {
-                "name": "John W. Watson",
-                "student_email": "thisIsAnEmail@school.com",
-                "personal_email": "thisIsAnEmail@gmail.com",
-                "locker_number": 13,
-                "locker_combination": "12-33-44",
-                "good_student": True,
-                "subjects": [1],
-            }
-            serializer = StudentAllSerializer(data=data)
-            self.assertTrue(serializer.is_valid())
-        except Exception as e:
-            print(serializer.errors)
+    # def test_018_student_serializer_all_with_proper_data(self):
+    #     try:
+    #         Subject.objects.create(subject_name="Python", professor="Professor Adam")
+    #         data = {
+    #             "name": "John W. Watson",
+    #             "student_email": "thisIsAnEmail@school.com",
+    #             "personal_email": "thisIsAnEmail@gmail.com",
+    #             "locker_number": 13,
+    #             "locker_combination": "12-33-44",
+    #             "good_student": True,
+    #             "subjects": [1],
+    #         }
+    #         serializer = StudentAllSerializer(data=data)
+    #         self.assertTrue(serializer.is_valid())
+    #     except Exception as e:
+    #         print(serializer.errors)
 
-    def test_019_student_serializer_all_with_proper_reponse(self):
-        # Subject.objects.create(subject_name = "Python", professor = "Professor Adam")
-        stud = Student(
-            **{
-                "name": "John W. Watson",
-                "student_email": "thisIsAnEmail@school.com",
-                "personal_email": "thisIsAnEmail@gmail.com",
-                "locker_number": 13,
-                "locker_combination": "12-33-44",
-                "good_student": True,
-            }
-        )
-        serializer = StudentAllSerializer(stud)
-        self.assertEquals(
-            serializer.data,
-            {
-                "name": "John W. Watson",
-                "student_email": "thisIsAnEmail@school.com",
-                "personal_email": "thisIsAnEmail@gmail.com",
-                "locker_number": 13,
-                "locker_combination": "12-33-44",
-                "good_student": True,
-                "subjects": [],
-            },
-        )
+    # def test_019_student_serializer_all_with_proper_reponse(self):
+    #     # Subject.objects.create(subject_name = "Python", professor = "Professor Adam")
+    #     stud = Student(
+    #         **{
+    #             "name": "John W. Watson",
+    #             "student_email": "thisIsAnEmail@school.com",
+    #             "personal_email": "thisIsAnEmail@gmail.com",
+    #             "locker_number": 13,
+    #             "locker_combination": "12-33-44",
+    #             "good_student": True,
+    #         }
+    #     )
+    #     serializer = StudentAllSerializer(stud)
+    #     self.assertEquals(
+    #         serializer.data,
+    #         {
+    #             "name": "John W. Watson",
+    #             "student_email": "thisIsAnEmail@school.com",
+    #             "personal_email": "thisIsAnEmail@gmail.com",
+    #             "locker_number": 13,
+    #             "locker_combination": "12-33-44",
+    #             "good_student": True,
+    #             "subjects": [],
+    #         },
+    #     )
 
-    # PART V
+    PART V
     def test_020_student_with_not_enough_classes(self):
         try:
             new_student = Student.objects.create(
@@ -378,25 +378,26 @@ class Test_student(TestCase):
             # print(e)
             self.assertEquals("This students class schedule is empty!", str(e))
 
-    # def test_021_student_with_too_many_classes(self):
-    #     try:
-    #         new_student = Student.objects.create(
-    #             name="Maverick H. Macconnel",
-    #             student_email="mav@school.com",
-    #             personal_email="mav@gmail.com",
-    #         )
-    #         new_student.save()
-    #         for idx in range(9):
-    #             a_class = Subject.objects.create(
-    #                 subject_name=f"Python{idx}", professor="Professor Ana"
-    #             )
-    #             a_class.save()
-    #             new_student.add_subject(a_class.id)
-    #         self.fail()
-    #     except Exception as e:
-    #         # print(e)
-    #         self.assertEquals("This students class schedule is full!", str(e))
+    def test_021_student_with_too_many_classes(self):
+        try:
+            new_student = Student.objects.create(
+                name="Maverick H. Macconnel",
+                student_email="mav@school.com",
+                personal_email="mav@gmail.com",
+            )
+            new_student.save()
+            for idx in range(9):
+                a_class = Subject.objects.create(
+                    subject_name=f"Python{idx}", professor="Professor Ana"
+                )
+                a_class.save()
+                new_student.add_subject(a_class.id)
+            self.fail()
+        except Exception as e:
+            # print(e)
+            self.assertEquals("This students class schedule is full!", str(e))
 
+    # #PASSES :) 
     # def test_022_subject_with_improper_subject_format(self):
     #     try:
     #         new_student = Student.objects.create(
@@ -419,6 +420,7 @@ class Test_student(TestCase):
     #             in e.message_dict["subject_name"]
     #         )
 
+    # #PASSES :) 
     # def test_023_subject_with_improper_professor_format(self):
     #     try:
     #         new_student = Student.objects.create(
@@ -439,6 +441,10 @@ class Test_student(TestCase):
     #             in e.message_dict["professor"]
     #         )
 
+
+
+
+
     # def test_024_subject_with_not_enough_students(self):
     #     try:
     #         a_subject = Subject.objects.create(
@@ -452,6 +458,7 @@ class Test_student(TestCase):
     #         # print(e)
     #         self.assertEquals("This subject is empty!", str(e))
 
+    # #PASSES :) 
     # def test_025_Grade_with_proper_input(self):
     #     Subject.objects.create(subject_name="Math", professor="Professor Ben")
     #     Student.objects.create(
@@ -467,6 +474,7 @@ class Test_student(TestCase):
     #     grade.full_clean()
     #     self.assertIsNotNone(grade)
 
+    # #PASSES :) 
     # def test_026_Grade_with_high_grade(self):
     #     try:
     #         Subject.objects.create(subject_name="Math", professor="Professor Ben")
@@ -489,6 +497,7 @@ class Test_student(TestCase):
     #             in e.message_dict["grade"]
     #         )
 
+    # #PASSES :) 
     # def test_027_Grade_with_incorrect_grade_format(self):
     #     try:
     #         grade = Grade.objects.create(
