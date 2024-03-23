@@ -15,14 +15,14 @@ class Subject(models.Model):
     def add_a_student(self,student_id):
         error_message = 'This subject is full!'
         if self.students.count() >= 31:
-            raise ValidationError(error_message)
+            raise Exception(error_message)
         else:
             self.students.add(student_id)
     
     def drop_a_student(self, student_id):
         error_message = 'This subject is empty!'
         if self.students.count() <= 1:
-            raise ValidationError(error_message)   
+            raise Exception(error_message)   
         else:
             self.students.remove(student_id)
 

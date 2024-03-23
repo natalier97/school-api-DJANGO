@@ -1,0 +1,32 @@
+[
+  {
+    "subject_name": "Python",
+    "professor": "Professor Adam",
+    "students": 6,
+    "grade_average": 54.05
+  },
+  {
+    "subject_name": "Javascript",
+    "professor": "Professor Zaynab",
+    "students": 4,
+    "grade_average": 41.33
+  },
+  {
+    "subject_name": "C#",
+    "professor": "Professor Benjamin",
+    "students": 6,
+    "grade_average": 42.54
+  },
+  {
+    "subject_name": "History",
+    "professor": "Professor Nick",
+    "students": 5,
+    "grade_average": 25.39
+  },
+  {
+    "subject_name": "Philosophy",
+    "professor": "Professor Avila",
+    "students": 5,
+    "grade_average": 51.37
+  }
+]
