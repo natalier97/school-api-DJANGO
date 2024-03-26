@@ -13,13 +13,8 @@ class SubjectSerializer(ModelSerializer):
 
 
     def get_students(self, instance):
-    #     if instance.id:
-    #         students = instance.students.all()
-    #         ser_students = [{'students': x.count()} for x in students]
-    #         return ser_students
         return instance.students.count()
-        # else:
-        #     return []
+       
         
     def get_grade_average(self, instance):
         grades = instance.grades.all()
