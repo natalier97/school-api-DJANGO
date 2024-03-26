@@ -18,7 +18,7 @@ class StudentSerializer(ModelSerializer):
 
 
 class StudentAllSerializer(ModelSerializer):
-    subjects =  SubjectSerializer(many=True)
+    subjects =  SubjectSerializer(read_only=True, many=True)
     # subjects = SerializerMethodField()
     class Meta:
         model = Student
