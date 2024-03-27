@@ -10,7 +10,7 @@ class Subject(models.Model):
     # students
 
     def __str__(self):
-        return f"{self.subject_name} - {self.professor} - {len(self.students)}"
+       return f"{self.subject_name} - {self.professor} - {self.students.count()}"
     
     def add_a_student(self,student_id):
         error_message = 'This subject is full!'

@@ -14,15 +14,18 @@ def validate_professor_name(professor_name):
     else:
         raise ValidationError(error_message, params={'professor_name': professor_name})
 
+def validate_subject_name(value):
+    if value.title() != value:
+        raise ValidationError("Subject must be in title case format.")
 
-
-def validate_subject_name(subject_name):
-    #title format
-    regex = r"^[A-Z][a-z]+ [A-z][a-z]*$"
-
-    error_message = "Subject must be in title case format."
-    good_name = re.match(regex, subject_name)
-    if good_name:
-        return subject_name
-    else:
-        raise ValidationError(error_message, params={'subject_name': subject_name})
+# def validate_subject_name(subject_name):
+   
+#     regex = r"^[A-Z][a-z]+$"
+#     # (?: [A-Z][a-z]+)?
+#  #title format
+#     error_message = "Subject must be in title case format."
+#     good_name = re.match(regex, subject_name)
+#     if good_name:
+#         return subject_name
+#     else:
+#         raise ValidationError(error_message, params={'subject_name': subject_name})
