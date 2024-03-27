@@ -5,12 +5,12 @@ from subject_app.serializers import SubjectSerializer
 
 
 class GradeSerializer(ModelSerializer):
-    # subjects = 
+    # subjects = SubjectSerializer(many=True, read_only=True)
 
     # student = SerializerMethodField()
     
     class Meta:
         model = Grade
-        fields = ['grade']
-    
+        fields = ["id", "student", "a_subject", "grade"]
+
   

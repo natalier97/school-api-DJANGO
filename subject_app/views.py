@@ -22,7 +22,7 @@ class All_subjects(APIView):
     
 
 class A_subject(APIView):
-
+    #get = READ
     def get(self, request, subject):
         subj = get_object_or_404(Subject, subject_name=subject.title())
         subj_ser = SubjectSerializer(subj)

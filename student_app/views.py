@@ -26,6 +26,7 @@ class All_students(APIView):
         return Response(new_stud.errors, status=HTTP_400_BAD_REQUEST)
 
 class A_student(APIView):
+    #read = GET
     def get(self, request, id):
         a_student = get_object_or_404(Student, id=id)
         student_result = StudentAllSerializer(a_student)
